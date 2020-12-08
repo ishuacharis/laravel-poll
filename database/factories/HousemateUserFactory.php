@@ -5,17 +5,17 @@ namespace Database\Factories;
 use App\Models\User;
 use App\Models\Housemate;
 use App\Models\Platform;
-use App\Models\Vote;
+use App\Models\HousemateUser;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class VoteFactory extends Factory
+class HousemateUserFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Vote::class;
+    protected $model = HousemateUser::class;
 
     /**
      * Define the model's default state.
@@ -26,10 +26,10 @@ class VoteFactory extends Factory
     {
         return [
             //
-            'user_id' => User::factory(),
-            'housemate_id' => Housemate::factory(),
-            'platform_id' => 1,
-            'amount' => $this->faker->numberBetween()
+            'user_id' => User::inRandomOrder()->first(),
+            'housemate_id' => Housemate::inRandomOrder()->first(),
+            'platform_id' => Platform::inRandomOrder()->first(),
+            'amount' => $this->faker->numberBetween(1,1000)
         ];
     }
 }

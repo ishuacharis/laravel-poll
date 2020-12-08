@@ -43,6 +43,7 @@ class User extends Authenticatable
     ];
 
     public function housemates() {
-        return $this->belongsToMany('App\Models\Housemate')->using('App\Models\Vote');
+        return $this->belongsToMany('App\Models\Housemate')
+        ->withPivot(['amount']);
     }
 }
