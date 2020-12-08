@@ -19,6 +19,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'phone_no',
         'password',
     ];
 
@@ -40,4 +41,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function housemates() {
+        return $this->belongsToMany('App\Models\Housemate')->using('App\Models\Vote');
+    }
 }

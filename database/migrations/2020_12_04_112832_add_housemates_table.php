@@ -17,7 +17,8 @@ class AddHousematesTable extends Migration
             //
             $table->id();
             $table->string('name');
-            $table->string('screen_name');
+            $table->string('screen_name')->unique();
+            $table->timestamps();
         });
     }
  
