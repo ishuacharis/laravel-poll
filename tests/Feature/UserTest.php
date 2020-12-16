@@ -29,7 +29,7 @@ class UserTest extends TestCase
         $this->user = User::factory()->make();
     }
 
-    public function test_users_tables_has_expected_cols() {
+    public function test_users_table_has_expected_cols() {
         $usersTableHasCols =  Schema::hasColumns($this->table_name, $this->table_cols);
         $this->assertTrue($usersTableHasCols);
     }
@@ -38,5 +38,6 @@ class UserTest extends TestCase
         $isUserSavedToDatabase  = $this->user->save();
         $this->assertTrue($isUserSavedToDatabase);
     }
+
     
 }
