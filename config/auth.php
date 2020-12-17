@@ -42,12 +42,13 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
+            'driver' => 'passport',
             'provider' => 'users',
             'hash' => false,
         ],
     ],
 
+    //switched token for passport on 17/12/2020
     /*
     |--------------------------------------------------------------------------
     | User Providers
