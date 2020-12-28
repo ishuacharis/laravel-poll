@@ -18,4 +18,9 @@ class PasswordContract implements IPassword
     {
         return $this->hash::check($password, $hash_password);
     }
+
+    public function make(String $password)
+    {
+        return $this->hash::make($password);
+    }
 }

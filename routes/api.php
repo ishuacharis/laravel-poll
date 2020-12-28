@@ -30,5 +30,6 @@ Route::group(['middleware' => ['cors', 'json.response']], function() {
 
 Route::middleware('auth:api')->group(function() {
     Route::post('logout', [ApiLoginController::class, 'logout']);
+    //vote route
 });
 

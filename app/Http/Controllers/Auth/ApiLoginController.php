@@ -6,13 +6,26 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use App\Models\User;
+use Log;
+use App\Repositories\UserRepositoryInterface;
+use App\Interfaces\IPassword;
+use App\Http\Requests\LoginFormRequest;
+
 
 class ApiLoginController extends Controller
 {
     //
+
+    protected $user;
+    protected $hash;
+
+    public function __construct(UserRepositoryInterface $user, IPassword $hash) {
+
+        $this->user = $user;
+        $this->hash = $hash;
+
+    }
 
     public function logout(Request $request) 
     {
@@ -22,15 +35,12 @@ class ApiLoginController extends Controller
         return response($response, 200);
     }
 
-    public function login(Request $request) {        
+    public function login(LoginFormRequest $request) {       
+        //Log::debug($request); 
         
-        $validator = $this->validate_credentials(['request' => $request]);
+        $validated = $request->validated();
 
-        if ($validator->fails()) {
-            return response(['errors' => $validator->errors()->all(), 422]);
-        }
-
-        $user = $this->user(['request' => $request]);
+        $user = $this->findUser(['request' => $validated]);
 
         if ($user) {
             if ($this->checkPassword(['request' => $request, 'user' => $user])) {
@@ -48,27 +58,18 @@ class ApiLoginController extends Controller
                  
 
     }
-    
-    private function user($args) {
+  
+    private function findUser($args) {
         $request = $args['request'];
-
-        return User::where('email', $request->email)->first();
+        return $this->user->where('email', $request['email'])->first();
     }
 
     private function checkPassword($args) {
         $request = $args['request'];
         $user = $args['user'];
-        return Hash::check($request->password, $user->password);
+        return $this->hash->check($request['password'], $user->password);
     }
 
-
-    private function validate_credentials($args) {
-       $request =  $args['request'];
-        return Validator::make($request->all(), [
-            "email" => "required|email",
-            "password" => "required",
-        ]);
-    }
     
     
 

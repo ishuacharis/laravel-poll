@@ -23,4 +23,9 @@ class UserRepository implements UserRepositoryInterface
         return $this->model->where($attribute, $value);
     }
 
+    public function create(array $attributes)
+    {
+        return $this->model->create($attributes);
+    }
+
 }
