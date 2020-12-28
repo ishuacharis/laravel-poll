@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
-use Log;
 use App\Repositories\UserRepositoryInterface;
 use App\Interfaces\IPassword;
 use App\Http\Requests\LoginFormRequest;
@@ -36,7 +35,6 @@ class ApiLoginController extends Controller
     }
 
     public function login(LoginFormRequest $request) {       
-        //Log::debug($request); 
         
         $validated = $request->validated();
 

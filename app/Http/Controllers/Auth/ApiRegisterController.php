@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use App\Repositories\UserRepositoryInterface;
 use App\Interfaces\IPassword;
-use Log;
 use App\Http\Requests\CreateUserFormRequest;
 
 class ApiRegisterController extends Controller

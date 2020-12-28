@@ -21,7 +21,8 @@ use App\Http\Controllers\Auth\ApiRegisterController;
 // });
 
 //public routes
-Route::group(['middleware' => ['cors', 'json.response']], function() {
+//'json.response' middle
+Route::group(['middleware' => ['cors', ]], function() {
     Route::post('register', [ApiRegisterController::class, 'register']);
     Route::post('login', [ApiLoginController::class, 'login']);
 });
