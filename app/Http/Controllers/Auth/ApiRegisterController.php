@@ -47,7 +47,8 @@ class ApiRegisterController extends Controller
     private function save_user($args) {
         //hash password and add other attributes before saving
         $request =  $args['request'];
-        $request['password'] = $this->hash->make($request["password"]);
+        $args = ['password' => $request["password"] ];
+        $request['password'] = $this->hash->make($args);
         $request['remember_token'] = Str::random(10);
         
         //save user to database

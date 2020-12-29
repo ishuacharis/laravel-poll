@@ -65,7 +65,8 @@ class ApiLoginController extends Controller
     private function checkPassword($args) {
         $request = $args['request'];
         $user = $args['user'];
-        return $this->hash->check($request['password'], $user->password);
+        $args = ['password' => $request['password'], 'hash_password' => $user->password];
+        return $this->hash->check($args);
     }
 
     

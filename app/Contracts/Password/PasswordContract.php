@@ -14,13 +14,13 @@ class PasswordContract implements IPassword
         $this->hash = $hash;
     }
 
-    public function check(String $password, String $hash_password)
+    public function check(array $args)
     {
-        return $this->hash::check($password, $hash_password);
+        return $this->hash::check($args['password'], $args['hash_password']);
     }
 
-    public function make(String $password)
+    public function make(array $args)
     {
-        return $this->hash::make($password);
+        return $this->hash::make($args['password']);
     }
 }
