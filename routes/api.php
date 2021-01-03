@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\ApiLoginController;
 use App\Http\Controllers\Auth\ApiRegisterController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +27,8 @@ use App\Http\Controllers\Auth\ApiRegisterController;
 Route::group(['middleware' => ['cors', ]], function() {
     Route::post('register', [ApiRegisterController::class, 'register']);
     Route::post('login', [ApiLoginController::class, 'login']);
+    Route::post('forgot_password', [ForgotPasswordController::class, 'forgotPassword']);
+    Route::post('reset_password', [ResetPasswordController::class, 'resetPassword']);
 });
 
 //protected routes 
