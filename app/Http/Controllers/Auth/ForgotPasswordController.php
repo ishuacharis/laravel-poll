@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\Request;
 use App\Http\Requests\PasswordFormRequest;
+use Illuminate\Support\Facades\Password;
 use Str;
+use Log;
 
 class ForgotPasswordController extends Controller
 {
@@ -29,9 +31,17 @@ class ForgotPasswordController extends Controller
         $validated =  $request->validated();
         $email = $validated['email'];
         $token = Str::random(10);
+        $status  = Password::sendResetLink($validated);
 
-        $response = ['message' =>  "Check your  $email for the token $token" ];
-        return response($response,200);
+        if($status === Password::RESET_LINK_SENT) {
+            $response = ['message' =>  "Check your  $email for the token $token" ];
+            return response($response,200);
+        }
+        $response = ['message' =>  __($status, ['email' => $email]) ];
+        return response($response,422);
+        
+
+        
     }
 
     protected function sendResetLinkResponse(Request $request, $response ) {
