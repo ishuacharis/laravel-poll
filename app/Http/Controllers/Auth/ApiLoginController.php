@@ -43,18 +43,18 @@ class ApiLoginController extends Controller
         if ($user) {
             if ($this->checkPassword(['request' => $request, 'user' => $user])) {
                 $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-                $response = ['reponse' => [
+                $response = ['response' => [
                     'user' => $user,
                     'token' => $token
                 ]];
                 return response($response, 200);
             } 
             
-            $response = ["message" => "Password mismatch"];
+            $response = ["response" => "Password mismatch"];
             return response($response, 422);
             
         } 
-        $response = ["message" =>'User does not exist'];
+        $response = ["response" =>'User does not exist'];
         return response($response, 422);
                  
 

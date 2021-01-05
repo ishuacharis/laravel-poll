@@ -34,12 +34,17 @@ class ApiRegisterController extends Controller
         if ($user) {
 
             $token = $user->createToken('Laravel password Grant Client')->accessToken;
-            $response  = ['token' => $token];
+            $response  = [
+                'response' => [
+                    'token' => $token,
+                    'user' => $user
+                ]
+            ];
 
             return response($response,200);
         }
 
-        $response =  ['message' => 'Internal server error'];
+        $response =  ['response' => 'Internal server error'];
         return response($response, 500);
     }
 
