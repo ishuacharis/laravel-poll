@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
+use App\Notifications\MailResetPasswordNotification;
 
 class User extends Authenticatable
 {
@@ -48,5 +49,13 @@ class User extends Authenticatable
     public function housemates() {
         return $this->belongsToMany('App\Models\Housemate')
         ->withPivot(['amount']);
+    }
+
+
+    public function sendPasswordResetNotification($token) {
+
+        
+
+        $this->notify(new MailResetPasswordNotification($token));
     }
 }

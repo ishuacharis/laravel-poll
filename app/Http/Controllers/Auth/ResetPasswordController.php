@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use App\Interfaces\IPassword;
 use App\Http\Requests\PasswordResetFormRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Password;
+use Str;
+use Illuminate\Auth\Events\PasswordReset;
 
 class ResetPasswordController extends Controller
 {
@@ -41,17 +44,28 @@ class ResetPasswordController extends Controller
 
     protected function resetPassword(PasswordResetFormRequest $request)
     {
-        //$user->password = $this->hash->make($password);
-        //$user->save();
-        //event(new PasswordReset($user));
         $validated = $request->validated();
         $email = $validated['email'];
-        $token =  $validated['token'];
-        $password =  $validated['password'];
-        $password = $this->hash->make(['password' => $password]);
+        $status =  Password::reset(
+            $validated,
+            function($user, $password) use ($request) {
+                $user->forceFill([
+                    'password' => $this->hash->make(['password' => $password])
+                ]);
+                $user->setRememberToken(Str::random(10));
+                $user->save();
+                event(new PasswordReset($user));   
+            }
+        );
+        
+        if($status ===  Password::PASSWORD_RESET){
+            $response = ['message' => "password successfully updated" ];
+            return response($response, 200);
+        }
+        $response = ['message' => __($status, ['email' => $email])];
+        return response($response, 500);
  
-        $response = ['message' => "token is $token password is $password and email is $email" ];
-        return response($response, 200);
+       
     }
 
     protected function sendResetResponse(Request $request, $response ) {

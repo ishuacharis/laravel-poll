@@ -9,7 +9,7 @@ use App\Http\Requests\PasswordFormRequest;
 use Illuminate\Support\Facades\Password;
 use Str;
 use Log;
-
+use DB;
 class ForgotPasswordController extends Controller
 {
     /*
@@ -34,7 +34,7 @@ class ForgotPasswordController extends Controller
         $status  = Password::sendResetLink($validated);
 
         if($status === Password::RESET_LINK_SENT) {
-            $response = ['message' =>  "Check your  $email for the token $token" ];
+            $response = ['message' =>  "Check your  $email for the token" ];
             return response($response,200);
         }
         $response = ['message' =>  __($status, ['email' => $email]) ];
