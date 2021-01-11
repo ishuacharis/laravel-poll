@@ -51,12 +51,12 @@ class ApiLoginController extends Controller
                 return response($response, 200);
             } 
             
-            $response = ["response" => "Password mismatch"];
+            $response = ["error" => "Password mismatch"];
             return response($response, 422);
             
         } 
-        $response = ["response" =>'User does not exist'];
-        return response($response, 422);
+        $response = ["error" =>'User does not exist'];
+        return response($response, 404);
         
         
                  
