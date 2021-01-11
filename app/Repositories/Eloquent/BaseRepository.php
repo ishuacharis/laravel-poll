@@ -2,7 +2,8 @@
 
 namespace App\Repositories\Eloquent;
 use App\Repositories\EloquentRepositoryInterface;
-use Illuminate\Eloquent\Database\Model;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder as Builder;
 use App\Models\User;
 
 class BaseRepository implements EloquentRepositoryInterface
@@ -25,7 +26,7 @@ class BaseRepository implements EloquentRepositoryInterface
         return $this->model->find($attribute);
     }
 
-    public function where(string $attribute, string $value) : Model
+    public function where(string $attribute, string $value) : Builder
     {   
         return $this->model->where($attribute, $value);
     }

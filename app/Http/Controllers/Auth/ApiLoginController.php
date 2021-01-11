@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 use App\Repositories\UserRepositoryInterface;
 use App\Interfaces\IPassword;
 use App\Http\Requests\LoginFormRequest;
-
+use Log;
 
 class ApiLoginController extends Controller
 {
@@ -34,8 +34,9 @@ class ApiLoginController extends Controller
         return response($response, 200);
     }
 
-    public function login(LoginFormRequest $request) {       
+    public function login(LoginFormRequest $request) {
         
+    
         $validated = $request->validated();
 
         $user = $this->findUser(['request' => $validated]);
@@ -56,6 +57,8 @@ class ApiLoginController extends Controller
         } 
         $response = ["response" =>'User does not exist'];
         return response($response, 422);
+        
+        
                  
 
     }

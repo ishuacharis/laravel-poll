@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Repositories;
-use Illuminate\Eloquent\Database\Model;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder as Builder;
 use App\Models\User;
 
 interface EloquentRepositoryInterface
@@ -10,5 +11,5 @@ interface EloquentRepositoryInterface
 
     public function find($attribute) : ?Model;
 
-    public function where (string $attribute, string $value) : Model;
+    public function where (string $attribute, string $value) : Builder;
 }
