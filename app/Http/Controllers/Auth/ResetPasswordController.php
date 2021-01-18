@@ -44,6 +44,12 @@ class ResetPasswordController extends Controller
 
     protected function resetPassword(PasswordResetFormRequest $request)
     {
+        return $this->resetUserPassword($request);
+    }
+
+    private function resetUserPassword($request)
+    {
+
         $validated = $request->validated();
         $email = $validated['email'];
         $status =  Password::reset(
@@ -64,8 +70,6 @@ class ResetPasswordController extends Controller
         }
         $response = ['message' => __($status, ['email' => $email])];
         return response($response, 500);
- 
-       
     }
 
     protected function sendResetResponse(Request $request, $response ) {

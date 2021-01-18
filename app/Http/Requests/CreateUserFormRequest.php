@@ -30,4 +30,29 @@ class CreateUserFormRequest extends FormRequest
             "password" => "required",
         ];
     }
+
+    public function messages()
+    {
+
+        return [
+            "name.required" => ":attribute is required",
+            "name.unique" => ":attribute must be required",
+            "email.required" => ":attribute  address is required",
+            "email.email" => ":attribute  address is not valid",
+            "email.unique" => ":attribute  must be unique",
+            "phone_no.required" => ":attribute is required",
+            "phone_no.unique" => ":attribute must be required",
+            "password.required" => ":attribute is required",
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            "name" => "name",
+            "email" => "email address",
+            "phone_no" => "phone number",
+            "password" => "password"
+        ];
+    }
 }

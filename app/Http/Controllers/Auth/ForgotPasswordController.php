@@ -28,6 +28,12 @@ class ForgotPasswordController extends Controller
     public function forgotPassword(PasswordFormRequest $request)
     {
 
+        return $this->forgotUserPassword($request);
+
+    }
+
+    private function forgotUserPassword($request)
+    {
         $validated =  $request->validated();
         $email = $validated['email'];
         $token = Str::random(10);
@@ -39,9 +45,6 @@ class ForgotPasswordController extends Controller
         }
         $response = ['message' =>  __($status, ['email' => $email]) ];
         return response($response,422);
-        
-
-        
     }
 
     protected function sendResetLinkResponse(Request $request, $response ) {

@@ -28,4 +28,19 @@ class PasswordFormRequest extends FormRequest
             "email" => "required|email"
         ];
     }
+
+    public function messages()
+    {
+        return [
+            "email.required" => ":attribute  address is required",
+            "email.email" => ":attribute  address is not valid",
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            "email" => "email address",
+        ];
+    }
 }

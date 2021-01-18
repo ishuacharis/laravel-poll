@@ -26,6 +26,11 @@ class ApiRegisterController extends Controller
     public function register(CreateUserFormRequest $request) 
     {
         
+        return $this->registerUser($request);
+    }
+
+    private function registerUser($request) {
+
         //validate request;
         $validated =   $request->validated();
 
@@ -44,10 +49,11 @@ class ApiRegisterController extends Controller
             return response($response,200);
         }
 
-        $response =  ['response' => 'Internal server error'];
+        $response =  [
+            'response' => ['error' => 'Internal server error']
+        ];
         return response($response, 500);
     }
-
 
     private function save_user($args) {
         //hash password and add other attributes before saving

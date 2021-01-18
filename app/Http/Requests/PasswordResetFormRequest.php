@@ -30,4 +30,24 @@ class PasswordResetFormRequest extends FormRequest
             'password' => 'required'
         ];
     }
+
+    public function messages()
+    {
+
+        return [
+            "token.required" => ":attribute is required",
+            "email.required" => ":attribute  address is required",
+            "email.email" => ":attribute  address is not valid",
+            "password.required" => ":attribute is required",
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            "token" => "token",
+            "email" => "email address",
+            "password" => "password"
+        ];
+    }
 }

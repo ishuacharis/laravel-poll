@@ -30,13 +30,17 @@ class ApiLoginController extends Controller
     {
         $token  = $request->user()->token();
         $token->revoke();
-        $response = ['message' => 'You have been successfully logged out!'];
+        $response = ['response' => 'You have been successfully logged out!'];
         return response($response, 200);
     }
 
     public function login(LoginFormRequest $request) {
-        
-    
+        return $this->loginUser($request);
+    }
+
+    private function loginUser($request)
+    {
+
         $validated = $request->validated();
 
         $user = $this->findUser(['request' => $validated]);
@@ -56,11 +60,7 @@ class ApiLoginController extends Controller
             
         } 
         $response = ["error" =>'User does not exist'];
-        return response($response, 404);
-        
-        
-                 
-
+        return response($response, 404);  
     }
   
     private function findUser($args) {
