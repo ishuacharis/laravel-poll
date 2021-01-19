@@ -6,9 +6,9 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use App\Mail\PasswordResetMailable;
+use App\Mail\WelcomeEmailMailable;
 
-class MailResetPasswordNotification extends Notification
+class WelcomeEmailNotification extends Notification
 {
     use Queueable;
 
@@ -17,15 +17,9 @@ class MailResetPasswordNotification extends Notification
      *
      * @return void
      */
-    private $url;
-    private $token;
-    private $user;
-    public function __construct($token,$user)
+    public function __construct()
     {
         //
-        $this->token = $token;
-        $this->url =  "https://example.com/reset-password?token=".$this->token;
-        $this->user  = $user;
     }
 
     /**
@@ -47,7 +41,7 @@ class MailResetPasswordNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new PasswordResetMailable($this->token, $this->user))->to($notifiable->email);
+        return (new WelcomeEmailMailable($this->user))->to($notifiable->email);
     }
 
     /**

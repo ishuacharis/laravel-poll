@@ -87,6 +87,21 @@ return [
         'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
+    /*
+    |--------------------------------------------------------------------------
+    | Global "Reply" Address
+    |--------------------------------------------------------------------------
+    |
+    | You may wish for all e-mails received by your application to be received by. 
+    Here, you may specify a name and address that is
+    | used globally for all e-mails that are received by your application.
+    |
+    */
+
+    'reply_to' => [
+        'address' => env('MAIL_REPLY_ADDRESS', 'hello@example.com'),
+        'name' => env('MAIL_REPLY_NAME', 'Example'),
+    ],
 
     /*
     |--------------------------------------------------------------------------
