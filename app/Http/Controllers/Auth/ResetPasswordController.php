@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Password;
 use Str;
 use Illuminate\Auth\Events\PasswordReset;
+use App\Repositories\UserRepositoryInterface;
 
 class ResetPasswordController extends Controller
 {
@@ -35,10 +36,13 @@ class ResetPasswordController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
     private $hash;
+    protected $user;
 
 
-    public function __construct(IPassword $hash){
+    public function __construct(UserRepositoryInterface $user,IPassword $hash)
+    {
         $this->hash = $hash;
+        $this->user = $user;
     }
 
 
@@ -64,25 +68,45 @@ class ResetPasswordController extends Controller
             }
         );
         
-        if($status ===  Password::PASSWORD_RESET){
-            $response = ['message' => "password successfully updated" ];
+        if($status ===  Password::PASSWORD_RESET)
+        {
+            $user = $this->findUser(['request' => $validated]);
+            $token = $user->createToken('Laravel Password Grant Client')->accessToken;
+            $response = [
+                'response' => [
+                    'message' => __($status),
+                    'user' => $user,
+                    'token' => $token
+                 ]
+            ];
             return response($response, 200);
         }
-        $response = ['message' => __($status, ['email' => $email])];
+        $response = [
+            'response' => ['message' => __($status, ['email' => $email])]
+        ];
         return response($response, 500);
     }
 
     protected function sendResetResponse(Request $request, $response ) {
 
-        $response =  ['message' => 'Password reset successfully'];
+        $response =  [
+            'response' => ['message' => 'Password reset successfully']
+        ];
         return response($response,200);
 
     }
 
     protected function sendResetFailedResponse(Request $request, $response ) {
 
-        $response =  ['message' => 'Token invalid'];
+        $response =  [
+            'response' => ['message' => 'Token invalid']
+        ];
         return response($response, 401);
         
+    }
+
+    private function findUser($args) {
+        $request = $args['request'];
+        return $this->user->where('email', $request['email'])->first();
     }
 }
