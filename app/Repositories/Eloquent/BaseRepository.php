@@ -26,6 +26,11 @@ class BaseRepository implements EloquentRepositoryInterface
         return $this->model->find($attribute);
     }
 
+    public function findOrFail(int $attribute) : ?Model
+    {
+        return $this->model->findOrFail($attribute);
+    }
+
     public function where(string $attribute, string $value) : Builder
     {   
         return $this->model->where($attribute, $value);

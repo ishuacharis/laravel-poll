@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\ApiLoginController;
 use App\Http\Controllers\Auth\ApiRegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\VerificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,12 +30,19 @@ Route::group(['middleware' => ['cors', ]], function() {
     Route::post('login', [ApiLoginController::class, 'login']);
     Route::post('forgot_password', [ForgotPasswordController::class, 'forgotPassword']);
     Route::post('reset_password', [ResetPasswordController::class, 'resetPassword']);
+    Route::get('email/verify/{id}', [VerificationController::class, 'verify'])->name('verification.verify');
+    
+    
+    
+    //protected routes 
+    Route::middleware('auth:api')->group(function() {
+        Route::get('email/verify', [VerificationController::class, 'notice'])->name('verification.notice');
+        Route::post('logout', [ApiLoginController::class, 'logout'])->middleware(['verified']);
+        //vote routes
+    });
+
+    
 });
 
-//protected routes 
 
-Route::middleware('auth:api')->group(function() {
-    Route::post('logout', [ApiLoginController::class, 'logout']);
-    //vote route
-});
 

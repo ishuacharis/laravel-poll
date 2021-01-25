@@ -36,12 +36,12 @@ class CreateUserFormRequest extends FormRequest
 
         return [
             "name.required" => ":attribute is required",
-            "name.unique" => ":attribute must be required",
+            "name.unique" => ":attribute already exist",
             "email.required" => ":attribute  address is required",
             "email.email" => ":attribute  address is not valid",
-            "email.unique" => ":attribute  must be unique",
+            "email.unique" => ":attribute  already exist",
             "phone_no.required" => ":attribute is required",
-            "phone_no.unique" => ":attribute must be required",
+            "phone_no.unique" => ":attribute already exist",
             "password.required" => ":attribute is required",
         ];
     }

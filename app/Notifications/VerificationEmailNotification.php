@@ -18,10 +18,12 @@ class VerificationEmailNotification extends Notification
      * @return void
      */
     private $user;
-    public function __construct($user)
+    private $expires;
+    public function __construct($user, $expires)
     {
         //
         $this->user = $user;
+        $this->expires  = $expires;
     }
 
     /**
@@ -43,7 +45,7 @@ class VerificationEmailNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new VerificationEmailMailable($this->user))->to($notifiable->email);
+        return (new VerificationEmailMailable($this->user, $this->expires))->to($notifiable->email);
     }
 
     /**

@@ -9,8 +9,10 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
 use App\Notifications\MailResetPasswordNotification;
+use App\Notifications\VerificationEmailNotification;
 
-class User extends Authenticatable
+
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable, HasApiTokens;
 
@@ -52,10 +54,15 @@ class User extends Authenticatable
     }
 
 
-    public function sendPasswordResetNotification($token) {
-
-        
-
+    public function sendPasswordResetNotification($token)
+    {
         $this->notify(new MailResetPasswordNotification($token,$this));
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+        $graceTimeInMinutes = 300;
+        $expires  = time() + $graceTimeInMinutes;
+        $this->notify(new VerificationEmailNotification($this,$expires));
     }
 }

@@ -25,6 +25,11 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         return $this->model->where($attribute, $value);
     }
 
+    public function findOrFail(int $attribute) : ?Model
+    {   
+        return $this->model->findOrFail($attribute);
+    }
+
     public function create(array $attributes) : Model
     {
         return $this->model->create($attributes);

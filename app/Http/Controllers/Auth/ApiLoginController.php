@@ -28,10 +28,18 @@ class ApiLoginController extends Controller
 
     public function logout(Request $request) 
     {
-        $token  = $request->user()->token();
-        $token->revoke();
-        $response = ['response' => 'You have been successfully logged out!'];
-        return response($response, 200);
+
+        try {
+            $token  = $request->user()->token();
+            $token->revoke();
+            $response = ['response' => 'You have been successfully logged out!'];
+            return response($response, 200);
+        } catch (\Throwable $th) {
+            Log::error("wahala");
+            
+        }
+
+        
     }
 
     public function login(LoginFormRequest $request) {
@@ -55,11 +63,15 @@ class ApiLoginController extends Controller
                 return response($response, 200);
             } 
             
-            $response = ["error" => "Password mismatch"];
+            $response = ["response" => [
+                "message" => "Password mismatch"
+            ]];
             return response($response, 422);
             
         } 
-        $response = ["error" =>'User does not exist'];
+        $response = ['response' => [
+            "message" =>'User does not exist'
+        ]];
         return response($response, 404);  
     }
   

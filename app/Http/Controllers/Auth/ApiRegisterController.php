@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use App\Repositories\UserRepositoryInterface;
 use App\Interfaces\IPassword;
 use App\Http\Requests\CreateUserFormRequest;
+use Illuminate\Auth\Events\Registered;
 
 class ApiRegisterController extends Controller
 {
@@ -37,15 +38,19 @@ class ApiRegisterController extends Controller
         $user  = $this->save_user(['request' => $validated]);
 
         if ($user) {
+            $graceTimeInMinutes = 300;
+            $expires  = time() + $graceTimeInMinutes;
 
             $token = $user->createToken('Laravel password Grant Client')->accessToken;
             $response  = [
                 'response' => [
                     'token' => $token,
-                    'user' => $user
+                    'user' => $user,
+                    'expires' => $expires
                 ]
             ];
-
+            
+            event(new Registered($user));
             return response($response,200);
         }
 

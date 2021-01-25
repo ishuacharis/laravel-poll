@@ -17,9 +17,11 @@ class WelcomeEmailNotification extends Notification
      *
      * @return void
      */
-    public function __construct()
+    private $user;
+    public function __construct($user)
     {
         //
+        $this->user  = $user;
     }
 
     /**
@@ -41,7 +43,7 @@ class WelcomeEmailNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new WelcomeEmailMailable($this->user))->to($notifiable->email);
+        return (new WelcomeEmailMailable($this->user, ))->to($notifiable->email);
     }
 
     /**

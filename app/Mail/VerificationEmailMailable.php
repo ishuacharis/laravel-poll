@@ -18,12 +18,14 @@ class VerificationEmailMailable extends Mailable
      */
     private $url;
     private $user;
-    public function __construct($user)
+    private $expires;
+    public function __construct($user, $expires)
     {
         //
-        $this->token = $token;
-        $this->url =  "http://localhost:80/verify";
+        $this->expires  = $expires;
         $this->user = $user;
+        $this->url = "localhost:8000/api/email/verify/".$this->user->id."?expires=".$this->expires;
+    
     }
 
     /**
