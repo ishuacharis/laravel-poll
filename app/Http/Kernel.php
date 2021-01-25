@@ -42,6 +42,7 @@ class Kernel extends HttpKernel
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\ForceJsonResponse::class,
+            \App\Http\Middleware\ForceRequestJson::class,
             \App\Http\Middleware\LogRequest::class,
         ],
     ];
@@ -61,8 +62,10 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
+        'verified' => \App\Http\Middleware\CustomEnsureEmailIsVerified::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'cors' => \App\Http\Middleware\Cors::class,        
     ];
+    //'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+    //'verified' => \App\Http\Middleware\CustomEnsureEmailIsVerified::class,
 }
