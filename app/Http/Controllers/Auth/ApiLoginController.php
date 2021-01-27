@@ -11,6 +11,10 @@ use App\Repositories\UserRepositoryInterface;
 use App\Interfaces\IPassword;
 use App\Http\Requests\LoginFormRequest;
 use Log;
+use App\Http\Resources\UserCollection;
+use App\Http\Resources\UserResource;
+use App\Models\User;
+use App\Events\LoginEvent;
 
 class ApiLoginController extends Controller
 {
@@ -43,11 +47,13 @@ class ApiLoginController extends Controller
     }
 
     public function login(LoginFormRequest $request) {
+         
+       // return  new UserCollection(User::all());
         return $this->loginUser($request);
     }
 
     private function loginUser($request)
-    {
+    { 
 
         $validated = $request->validated();
 
@@ -57,9 +63,10 @@ class ApiLoginController extends Controller
             if ($this->checkPassword(['request' => $request, 'user' => $user])) {
                 $token = $user->createToken('Laravel Password Grant Client')->accessToken;
                 $response = ['response' => [
-                    'user' => $user,
+                    'user' => new UserResource($user),
                     'token' => $token
                 ]];
+                LoginEvent::dispatch($user);
                 return response($response, 200);
             } 
             

@@ -23,6 +23,8 @@ use App\Http\Controllers\Auth\VerificationController;
 //     return $request->user();
 // });
 
+
+
 //public routes
 //'json.response' middle
 Route::group(['middleware' => ['cors', ]], function() {
