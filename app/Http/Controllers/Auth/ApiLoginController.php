@@ -15,6 +15,7 @@ use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Events\LoginEvent;
+use Illuminate\Support\Facades\Redis;
 
 class ApiLoginController extends Controller
 {
@@ -49,6 +50,7 @@ class ApiLoginController extends Controller
     public function login(LoginFormRequest $request) {
          
        // return  new UserCollection(User::all());
+       
         return $this->loginUser($request);
     }
 
@@ -66,7 +68,7 @@ class ApiLoginController extends Controller
                     'user' => new UserResource($user),
                     'token' => $token
                 ]];
-                LoginEvent::dispatch($user);
+                //LoginEvent::dispatch($user);
                 return response($response, 200);
             } 
             
