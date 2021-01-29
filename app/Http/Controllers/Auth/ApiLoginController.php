@@ -69,6 +69,7 @@ class ApiLoginController extends Controller
                     'token' => $token
                 ]];
                 //LoginEvent::dispatch($user);
+                event(new LoginEvent($user));
                 return response($response, 200);
             } 
             

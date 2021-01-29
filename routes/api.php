@@ -7,6 +7,10 @@ use App\Http\Controllers\Auth\ApiRegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\NotificationController;
+use App\Events\LoginEvent;
+use App\Events\MessageEvent;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +33,8 @@ use App\Http\Controllers\Auth\VerificationController;
 //'json.response' middle
 Route::group(['middleware' => ['cors', ]], function() {
     Route::post('register', [ApiRegisterController::class, 'register']);
+    Route::get('notifications/{id}', [NotificationController::class, 'index'] );
+    //broadcast(new MessageEvent("Thank God it is working in api route"));
     Route::post('login', [ApiLoginController::class, 'login']);
     Route::post('forgot_password', [ForgotPasswordController::class, 'forgotPassword']);
     Route::post('reset_password', [ResetPasswordController::class, 'resetPassword']);
@@ -45,6 +51,8 @@ Route::group(['middleware' => ['cors', ]], function() {
 
     
 });
+
+
 
 
 

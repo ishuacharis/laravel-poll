@@ -30,6 +30,6 @@ class SendUserLoginListener
     public function handle(LoginEvent $event)
     {
         $event->user->notify((new UserLoginNotification($event->user))
-        ->onConnection('redis')->onQueue('links')->delay(now()->addMinutes(2)));
+        ->delay(now()->addMinutes(2)));
     }
 }
