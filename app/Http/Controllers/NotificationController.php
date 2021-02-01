@@ -10,6 +10,16 @@ class NotificationController extends Controller
 {
     //
 
+    /**
+     * Get all the notification for a  user
+     * 
+     * @param \App\Http\Request
+     * @param int 
+     * 
+     * @return JsonResponse
+     * 
+     */
+
     public function index($id , Request $request)
     {
         $user  = User::findOrFail($id);

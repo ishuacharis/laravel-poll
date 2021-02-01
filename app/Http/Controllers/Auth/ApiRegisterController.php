@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use App\Repositories\UserRepositoryInterface;
-use App\Interfaces\IPassword;
+use App\Contracts\Password\PasswordContract;
 use App\Http\Requests\CreateUserFormRequest;
 use Illuminate\Auth\Events\Registered;
 use App\Http\Resources\UserResource;
@@ -17,20 +17,46 @@ class ApiRegisterController extends Controller
 
     protected $user;
     protected $hash;
-    public function __construct(UserRepositoryInterface $user, IPassword $hash) 
+
+    /**
+     * Create instance of controller
+     * 
+     * @param \App\Repositories\UserRepositoryInterface
+     * @param \App\Contacts\Password\PasswordContract
+     * 
+     */
+
+    public function __construct(UserRepositoryInterface $user, PasswordContract $hash) 
     {
         $this->user  = $user;
         $this->hash  = $hash;
 
     }
     
-    //
+    /**
+     * Register user
+     * 
+     * @param \App\Http\Requests\CreateUserFormRequest;
+     * 
+     * @return JsonResponse
+     * 
+     * 
+     */
     public function register(CreateUserFormRequest $request) 
     {
         
         return $this->registerUser($request);
     }
 
+     /**
+     * Register user
+     * 
+     * @param array
+     * 
+     * @return JsonResponse
+     * 
+     * 
+     */
     private function registerUser($request) {
 
         //validate request;
@@ -61,7 +87,18 @@ class ApiRegisterController extends Controller
         return response($response, 500);
     }
 
-    private function save_user($args) {
+    /**
+     * Create new user
+     * 
+     * @param array
+     * 
+     * @return \App\Models\User
+     * 
+     * 
+     */
+
+    private function save_user($args)
+    {
         //hash password and add other attributes before saving
         $request =  $args['request'];
         $args = ['password' => $request["password"] ];

@@ -31,13 +31,15 @@ class VerificationController extends Controller
      * @var string
      */
     //protected $redirectTo = RouteServiceProvider::HOME;
-
+    
+    protected $user;
     /**
      * Create a new controller instance.
      *
+     * @param \App\Repositories\UserRepositoryInterface
+     * 
      * @return void
      */
-    protected $user;
     public function __construct(UserRepositoryInterface $user)
     {
         $this->user = $user;
@@ -46,6 +48,13 @@ class VerificationController extends Controller
         // $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
 
+    /**
+     * Create a new controller instance.
+     *
+     * @param \App\Http\Request
+     * 
+     * @return JsonResponse
+     */
     public function notice(Request $request)
     {
         $response  = [
@@ -56,6 +65,16 @@ class VerificationController extends Controller
 
         return response($response, 200);
     }
+
+    /**
+     * Create a new controller instance.
+     *
+     * @param \App\Http\Request
+     * @param int
+     * 
+     * @return JsonResponse
+     */
+
     public function verify($id,  Request $request)
     {   
         $expires  = $request->expires;

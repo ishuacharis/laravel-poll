@@ -24,12 +24,26 @@ class ForgotPasswordController extends Controller
 
     use SendsPasswordResetEmails;
 
+    /**
+     * 
+     * @param \App\Http\Requests\PasswordFormRequest
+     * 
+     * @return JsonResponse
+     */
+
     public function forgotPassword(PasswordFormRequest $request)
     {
 
         return $this->forgotUserPassword($request);
 
     }
+
+    /**
+     * 
+     * @param array
+     * 
+     * @return JsonResponse
+     */
 
     private function forgotUserPassword($request)
     {

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
-use App\Interfaces\IPassword;
+use App\Contracts\Password\PasswordContract;
 use App\Http\Requests\PasswordResetFormRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Password;
@@ -39,13 +39,29 @@ class ResetPasswordController extends Controller
     protected $user;
 
 
-    public function __construct(UserRepositoryInterface $user,IPassword $hash)
+    /**
+     * Create instance controller
+     * 
+     * @param \App\Repositories\UserRepositoryInterface
+     * @param \App\Contracts\Password\PasswordContract
+     * 
+     */
+    public function __construct(UserRepositoryInterface $user,PasswordContract $hash)
     {
         $this->hash = $hash;
         $this->user = $user;
     }
 
 
+    /**
+     * Create instance controller
+     * 
+     * @param \App\Http\Requests\PasswordResetFormRequest
+     * @param \App\Contracts\Password\PasswordContract
+     * 
+     * @return JsonResponse
+     * 
+     */
     protected function resetPassword(PasswordResetFormRequest $request)
     {
         return $this->resetUserPassword($request);

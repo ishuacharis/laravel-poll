@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use App\Repositories\UserRepositoryInterface;
-use App\Interfaces\IPassword;
+use App\Contacts\Password\PasswordContract;
 use App\Http\Requests\LoginFormRequest;
 use Log;
 use App\Http\Resources\UserCollection;
@@ -24,7 +24,15 @@ class ApiLoginController extends Controller
     protected $user;
     protected $hash;
 
-    public function __construct(UserRepositoryInterface $user, IPassword $hash) {
+    /**
+     * Create instance of controller
+     * 
+     * @param \App\Repositories\UserRepositoryInterface
+     * @param \App\Contacts\Password\PasswordContract
+     * 
+     */
+
+    public function __construct(UserRepositoryInterface $user, PasswordContract $hash) {
 
         $this->user = $user;
         $this->hash = $hash;
@@ -47,13 +55,29 @@ class ApiLoginController extends Controller
         
     }
 
+    /**
+     * Login user
+     * 
+     * @param \App\Http\Requests\LoginFormRequest|request;
+     * 
+     * @return JsonResponse
+     * 
+     */
+
     public function login(LoginFormRequest $request) {
-         
-       // return  new UserCollection(User::all());
+        
        
         return $this->loginUser($request);
     }
 
+    /**
+     * Login User
+     * 
+     * @param array
+     * 
+     * @return JsonResponse
+     * 
+     */
     private function loginUser($request)
     { 
 
@@ -84,12 +108,29 @@ class ApiLoginController extends Controller
         ]];
         return response($response, 404);  
     }
+
+    /**
+     * Check user
+     * 
+     * @param array
+     * 
+     * @return \App\Models\User
+     * 
+     */
   
     private function findUser($args) {
         $request = $args['request'];
         return $this->user->where('email', $request['email'])->first();
     }
 
+    /**
+     * Check password
+     * 
+     * @param array
+     * 
+     * @return boolean
+     * 
+     */
     private function checkPassword($args) {
         $request = $args['request'];
         $user = $args['user'];
