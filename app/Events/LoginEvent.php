@@ -19,6 +19,8 @@ class LoginEvent implements ShouldBroadcast
     /**
      * Create a new event instance.
      *
+     * @param \App\Models\User
+     * 
      * @return void
      */
     public function __construct(User $user)
@@ -37,6 +39,12 @@ class LoginEvent implements ShouldBroadcast
         return new Channel('login-channel');
     }
 
+    /**
+     * Get the event the channels to broadcast to
+     * The event broadast name
+     * 
+     * @return void
+     */
     public function broadcastAs()
     {
         return 'login-event';

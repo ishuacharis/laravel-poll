@@ -1,26 +1,27 @@
 <?php
 
-namespace App\Contracts\Password;
+namespace App\Contract\Password;
 
-use Illuminate\Support\Facades\Hash;
-use App\Interfaces\IPassword;
+interface PasswordContract{
 
-class PasswordContract implements IPassword
-{
+    /**
+     * Check password
+     * 
+     * @param array
+     * 
+     * @return boolean
+     * 
+     */
+    public function check(array $args);
 
-    protected $hash;
+    /**
+     * Hash password
+     * 
+     * @param array
+     * 
+     * @return string
+     * 
+     */
+    public function make(array $args);
 
-    public function __construct(Hash $hash) {
-        $this->hash = $hash;
-    }
-
-    public function check(array $args)
-    {
-        return $this->hash::check($args['password'], $args['hash_password']);
-    }
-
-    public function make(array $args)
-    {
-        return $this->hash::make($args['password']);
-    }
 }

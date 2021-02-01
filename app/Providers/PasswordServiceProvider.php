@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Interfaces\IPassword;
-use App\Contracts\Password\PasswordContract;
+use App\Contract\Password\PasswordContract;
+use App\Repositories\Password\Password;
 
 class PasswordServiceProvider extends ServiceProvider
 {
@@ -16,7 +16,7 @@ class PasswordServiceProvider extends ServiceProvider
     public function register()
     {
         //
-        $this->app->bind(IPassword::class, PasswordContract::class);
+        $this->app->bind(PasswordContract::class, Password::class);
     }
 
     /**
