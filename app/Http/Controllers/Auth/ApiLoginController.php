@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use App\Repositories\UserRepositoryInterface;
-use App\Contacts\Password\PasswordContract;
+use App\Contracts\Password\PasswordContract;
 use App\Http\Requests\LoginFormRequest;
 use Log;
 use App\Http\Resources\UserCollection;
@@ -28,7 +28,7 @@ class ApiLoginController extends Controller
      * Create instance of controller
      * 
      * @param \App\Repositories\UserRepositoryInterface
-     * @param \App\Contacts\Password\PasswordContract
+     * @param \App\Contracts\Password\PasswordContract
      * 
      */
 

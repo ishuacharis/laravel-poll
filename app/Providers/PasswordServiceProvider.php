@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Contract\Password\PasswordContract;
+use App\Contracts\Password\PasswordContract;
 use App\Repositories\Password\Password;
 
 class PasswordServiceProvider extends ServiceProvider

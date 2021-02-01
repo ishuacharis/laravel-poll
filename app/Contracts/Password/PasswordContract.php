@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Contract\Password;
+namespace App\Contracts\Password;
 
 interface PasswordContract{
 

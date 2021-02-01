@@ -3,9 +3,9 @@
 namespace App\Repositories\Password;
 
 use Illuminate\Support\Facades\Hash;
-use App\Contract\Password\PasswordContract;
+use App\Contracts\Password\PasswordContract;
 
-class Password implements IPassword
+class Password implements PasswordContract
 {
 
     protected $hash;
@@ -25,7 +25,7 @@ class Password implements IPassword
      * 
      * @param array
      * 
-     * @return boolean
+     * @return bool
      * 
      */
     public function check(array $args)

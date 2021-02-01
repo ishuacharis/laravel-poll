@@ -29,6 +29,11 @@ class PasswordFormRequest extends FormRequest
         ];
     }
 
+    /**
+     * Get the validation message that apply to the request.
+     *
+     * @return array
+     */
     public function messages()
     {
         return [
@@ -37,6 +42,11 @@ class PasswordFormRequest extends FormRequest
         ];
     }
 
+    /**
+     * Get the validation attributes that apply to the request.
+     *
+     * @return array
+     */
     public function attributes()
     {
         return [

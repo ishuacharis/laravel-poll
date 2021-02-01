@@ -22,7 +22,7 @@ class ApiRegisterController extends Controller
      * Create instance of controller
      * 
      * @param \App\Repositories\UserRepositoryInterface
-     * @param \App\Contacts\Password\PasswordContract
+     * @param \App\Contracts\Password\PasswordContract
      * 
      */
 
