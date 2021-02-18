@@ -5,10 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\VoteRequestForm;
 use App\Models\HousemateUser;
+use App\Repositories\VoteRepositoryInterface;
 
 class HousemateUserController extends Controller
 {
     //
+    protected $vote;
+    public function __construct(VoteRepositoryInterface $vote)
+    {
+        $this->vote  = $vote;
+    }
 
 
     /**
@@ -44,7 +50,7 @@ class HousemateUserController extends Controller
     {
         $request =  $args['request'];
 
-        return HousemateUser::create([
+        return $this->vote->create([
             "user_id" => $request['user_id'],
             "housemate_id" => $request['housemate_id'],
             "platform_id" => $request['platform_id'],
