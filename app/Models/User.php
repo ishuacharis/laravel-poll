@@ -48,17 +48,38 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * The relationship between user and housemate
+     * 
+     * @param null
+     * 
+     * @return App\Models\Housemate|array
+     */
     public function housemates() {
         return $this->belongsToMany('App\Models\Housemate')
         ->withPivot(['amount']);
     }
 
 
+    /**
+     * Send password reset notification
+     *
+     * @param string
+     * 
+     * @return void
+     */
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new MailResetPasswordNotification($token,$this));
     }
 
+
+    /**
+     * Send email notification
+     *
+     *  
+     * @return void
+     */
     public function sendEmailVerificationNotification()
     {
         $graceTimeInMinutes = 300;

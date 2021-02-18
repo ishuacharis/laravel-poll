@@ -13,6 +13,25 @@ class HousemateUser extends Model
 
     public $incrementing = true;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'user_id',
+        'housemate_id',
+        'platform_id',
+        'amount',
+    ];
+
+    /**
+     * The relationship between HousemateUser and Platform
+     * 
+     * @return null
+     * 
+     * @return App\Models\Platform|array
+     */
 
     public function platforms() {
         return $this->belongsToMany('App\Models\Platform');
