@@ -35,7 +35,7 @@ class HousemateUserController extends Controller
                     'message' => "Your vote was successful"
                 ]
             ];
-            return response($vote, 200);
+            return response($response, 200);
         }
 
         $response = [
