@@ -17,19 +17,19 @@ class EvictionController extends Controller
         if (count($housemateUpForEviction) > 0)
         {
 
-            $reponse = [
+            $response = [
                 'response' => [
                     'data' => $housemateUpForEviction
                 ]
             ];
-            return response($reponse,200);
+            return response($response,200);
         }
 
-        $reponse = [
+        $response = [
             'response' => [
                 'message' => 'no eviction'
             ]
         ];
-        return response($reponse,500);
+        return response($response,500);
     }
 }
