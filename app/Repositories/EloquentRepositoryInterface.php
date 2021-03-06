@@ -12,6 +12,4 @@ interface EloquentRepositoryInterface
     public function find($attribute) : ?Model;
 
     public function where (string $attribute, string $value) : Builder;
-
-    public function findOrFail(int $attribute) : ?Model;
 }
