@@ -3,12 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
 use App\Http\Resources\NotificationCollection;
+use App\Repositories\UserRepositoryInterface;
 
 class NotificationController extends Controller
 {
-    //
+    protected $user;
+
+    /**
+     * Create instance of controller
+     * 
+     * @param \App\Repositories\UserRepositoryInterface
+     * 
+     * @return void
+     */
+
+    public function __construct(UserRepositoryInterface $userRepositoryInterface)
+    {
+        $this->user = $userRepositoryInterface;
+    }
 
     /**
      * Get all the notification for a  user
@@ -22,7 +35,7 @@ class NotificationController extends Controller
 
     public function index($id , Request $request)
     {
-        $user  = User::findOrFail($id);
+        $user  = $this->user->findOrFail($id);
         $notifications = $user->notifications;
         $response = [
             'response' => [
