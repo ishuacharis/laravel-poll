@@ -8,8 +8,14 @@ use App\Http\Resources\HousemateCollection;
 
 class EvictionController extends Controller
 {
-    //
-
+    /**
+     * Get List of housemates up for eviction
+     * 
+     * @param void
+     * 
+     * @return JsonResponse 
+     * 
+     */
     public function eviction()
     {
         $housemateUpForEviction = new HousemateCollection(Housemate::all());
