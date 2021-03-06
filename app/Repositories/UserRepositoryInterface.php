@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Repositories;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder as Builder;
 
 interface UserRepositoryInterface
 {
-    public function where(string $attribute, string $value);
+    public function where(string $attribute, string $value): Builder;
 
-    public function create(array $attributes);
-
-    public function findOrFail(int $attribute);
+    public function findOrFail(int $attribute): ?Model;
 }
