@@ -10,13 +10,13 @@ use Illuminate\Queue\SerializesModels;
 class VerificationEmailMailable extends Mailable
 {
     use Queueable, SerializesModels;
-
+    
+    private $user;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    private $user;
     public function __construct($user)
     {
         //
