@@ -3,11 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Housemate;
-use App\Http\Resources\HousemateCollection;
+use App\Repositories\HousemateRepositoryInterface;
 
 class EvictionController extends Controller
 {
+    protected $housemate;
+
+    /**
+     *  Create instance of the controller
+     * 
+     * @param \App\Repositories\HousemateRepositoryInterface
+     * 
+     * @return void
+     * 
+     */
+
+    public function __construct(HousemateRepositoryInterface $housemateInterface)
+    {
+        $this->housemate =  $housemateInterface;
+    }
+
     /**
      * Get List of housemates up for eviction
      * 
@@ -18,7 +33,7 @@ class EvictionController extends Controller
      */
     public function eviction()
     {
-        $housemateUpForEviction = new HousemateCollection(Housemate::all());
+        $housemateUpForEviction =  $this->housemate->collection($this->housemate->all());
 
         if (count($housemateUpForEviction) > 0)
         {
