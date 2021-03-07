@@ -3,24 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Housemate;
 use App\Repositories\HousemateRepositoryInterface;
 
 class EvictionController extends Controller
 {
-    protected $housemate;
+    protected $collection;
 
-    /**
-     *  Create instance of the controller
-     * 
-     * @param \App\Repositories\HousemateRepositoryInterface
-     * 
-     * @return void
-     * 
-     */
-
-    public function __construct(HousemateRepositoryInterface $housemateInterface)
+    public function __construct(HousemateRepositoryInterface $housemateRepositoryInterface)
     {
-        $this->housemate =  $housemateInterface;
+        $this->housemate =  $housemateRepositoryInterface;
     }
 
     /**
