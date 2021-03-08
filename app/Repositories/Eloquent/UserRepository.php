@@ -7,6 +7,8 @@ use App\Repositories\Eloquent\BaseRepository;
 use Illuminate\Database\Eloquent\Builder as Builder;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+use App\Http\Resources\NotificationCollection;
 
 
 class UserRepository extends BaseRepository implements UserRepositoryInterface
@@ -35,4 +37,8 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         return $this->model->create($attributes);
     }
 
+    public function allNotification(Collection $collection) : NotificationCollection
+    {
+        return new NotificationCollection($collection);
+    }
 }
