@@ -17,7 +17,7 @@ class NotificationResource extends JsonResource
         //return parent::toArray($request);
         return [
             'id' => $this->id,
-            'info' => $this->data
+            'type' => explode('\\',$this->type)[2]
         ];
     }
 }
