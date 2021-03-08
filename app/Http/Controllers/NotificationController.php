@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Resources\NotificationCollection;
 use App\Repositories\UserRepositoryInterface;
+use App\Repositories\NotificationRepositoryInterface;
 
 class NotificationController extends Controller
 {
     protected $user;
-
     /**
      * Create instance of controller
      * 
@@ -18,7 +17,7 @@ class NotificationController extends Controller
      * @return void
      */
 
-    public function __construct(UserRepositoryInterface $userRepositoryInterface)
+    public function __construct(UserRepositoryInterface $userRepositoryInterface,)
     {
         $this->user = $userRepositoryInterface;
     }
@@ -40,7 +39,7 @@ class NotificationController extends Controller
         $response = [
             'response' => [
                 'message' => "Notifications {$request->id}",
-                'notifications' => new NotificationCollection($notifications)
+                'notifications' => $this->user->allNotification($notifications)
             ]
         ];
         return response($response,200);
