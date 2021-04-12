@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Mail;
 
@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class VerificationEmailMailable extends Mailable
+class WelcomeEmailMailable extends Mailable
 {
     use Queueable, SerializesModels;
     
