@@ -13,13 +13,12 @@
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "7.2",
-        "laravel/framework": "^8.12",
-        "laravel/horizon": "^5.6",
+        "laravel/framework": "^8.36",
         "laravel/passport": "^10.1",
-        "laravel/tinker": "^2.5",
+        "laravel/tinker": "^2.6",
         "laravel/ui": "^3.1",
         "predis/predis": "^1.1",
-        "pusher/pusher-php-server": "~4.0"
+        "pusher/pusher-php-server": "^6.1"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
