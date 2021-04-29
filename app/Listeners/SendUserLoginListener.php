@@ -24,7 +24,7 @@ class SendUserLoginListener
     /**
      * Handle the event.
      *
-     * @param  LoginEvent  $event
+     * @param  \App\Events\LoginEvent
      * @return void
      */
     public function handle(LoginEvent $event)

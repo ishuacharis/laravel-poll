@@ -12,5 +12,10 @@ class Housemate extends Model
     public function users() {
         
         return $this->belongsToMany('App\Models\User')->withPivot(['amount']);
-    } 
+    }
+
+    public function getTotalVotesAttribute()
+    {
+        return $this->users->count();
+    }
 }

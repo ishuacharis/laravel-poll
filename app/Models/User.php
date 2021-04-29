@@ -86,4 +86,9 @@ class User extends Authenticatable implements MustVerifyEmail
         $expires  = time() + $graceTimeInMinutes;
         $this->notify(new VerificationEmailNotification($this,$expires));
     }
+    
+    public function getVotes()
+    {
+        return $this->housemates->count();
+    }
 }

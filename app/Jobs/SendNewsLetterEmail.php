@@ -15,12 +15,12 @@ class SendNewsLetterEmail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    protected $user;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    protected $user;
     public function __construct($user)
     {
         //
