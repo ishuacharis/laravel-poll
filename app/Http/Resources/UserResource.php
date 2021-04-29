@@ -19,6 +19,7 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
+            'votes' => $this->votes,
             'isVerified' => $this->email_verified_at ? true : false
         ];
         //return parent::toArray($request);
