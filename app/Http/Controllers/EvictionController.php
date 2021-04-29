@@ -32,7 +32,9 @@ class EvictionController extends Controller
 
             $response = [
                 'response' => [
-                    'data' => $housemateUpForEviction
+                    'data' => $housemateUpForEviction,
+                    "success" => true,
+                    "message" => "Eviction list successfully retrieved"
                 ]
             ];
             return response($response,200);
@@ -40,7 +42,8 @@ class EvictionController extends Controller
 
         $response = [
             'response' => [
-                'message' => 'no eviction'
+                'message' => 'No eviction list available',
+                "success" => false
             ]
         ];
         return response($response,500);

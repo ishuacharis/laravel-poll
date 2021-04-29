@@ -54,26 +54,42 @@ class ForgotPasswordController extends Controller
 
         if($status === Password::RESET_LINK_SENT) {
             $response = [
-                'response' => ['message' =>  __($status, ['email' => $email]) ]
+                'response' => [
+                    'message' =>  __($status, ['email' => $email]) ,
+                    'success' => true
+                ]
             ];
             return response($response,200);
         }
         $response = [
-            'response' => ['message' =>  __($status, ['email' => $email]) ]
+            'response' => [
+                'message' =>  __($status, ['email' => $email]),
+                'succes' => false
+            ]
         ];
         return response($response,422);
     }
 
     protected function sendResetLinkResponse(Request $request, $response ) {
 
-        $response =  ['message' => 'Password reset email sent'];
+        $response =  [
+            'response' => [
+                'message' => 'Password reset email sent',
+                'success' => false
+            ]
+        ];
         return response($response,200);
 
     }
 
     protected function sendResetLinkFailedResponse(Request $request, $response ) {
 
-        $response =  ['message' => 'Email could not be sent to this email'];
+        $response =  [
+            'response' => [
+                'message' => 'Email could not be sent to this email',
+                'success' => false
+            ]
+        ];
         return response($response, 500);
         
     }

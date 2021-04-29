@@ -74,7 +74,8 @@ class ApiRegisterController extends Controller
                 'response' => [
                     'user' => new UserResource($user),
                     'token' => $token,
-                    'expires' => $expires
+                    'expires' => $expires,
+                    'success' => true
                 ]
             ];          
             event(new Registered($user));
@@ -82,7 +83,10 @@ class ApiRegisterController extends Controller
         }
 
         $response =  [
-            'response' => ['error' => 'Internal server error']
+            'response' => [
+                'message' => 'Internal server error', 
+                'success' => false
+            ]
         ];
         return response($response, 500);
     }

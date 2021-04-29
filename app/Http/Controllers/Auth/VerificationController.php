@@ -81,18 +81,24 @@ class VerificationController extends Controller
         $isTokenValid  = time() > $expires;
         if (!$expires) {
             $response = [
-                'response' => 'You are not authorized to be here'
+                'response' => [
+                    'message' => 'You are not authorized to be here',
+                    'success' => false
+                ]
             ];
             return response($response, 401);
         }
         if ($isTokenValid) {
 
             $response = [
-                'response' => 'Please provide a valid token for verification',
+                'response' => [
+                    'message' => 'Please provide a valid token for verification',
+                    'success' => false
+                ],
             ];
             return response($response, 401);
         }
-        $user  =  $this->user->findOrFail($id); //User::findOrFail($id);
+        $user  =  $this->user->findOrFail($id);
         if (!$user->hasVerifiedEmail()) {
 
             $user->markEmailAsVerified();
@@ -100,6 +106,7 @@ class VerificationController extends Controller
             $response  = [
                 'response' => [
                     'message' =>  'You have successfully being verified',
+                    'success' => true
                 ]
             ];
     
@@ -109,6 +116,7 @@ class VerificationController extends Controller
         $response  = [
             'response' => [
                 'message' =>  'Internal Server error',
+                'success' => false
             ]
         ];
 

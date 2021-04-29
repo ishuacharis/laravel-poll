@@ -92,13 +92,17 @@ class ResetPasswordController extends Controller
                 'response' => [
                     'message' => __($status),
                     'user' => $user,
-                    'token' => $token
+                    'token' => $token,
+                    'success' => true
                  ]
             ];
             return response($response, 200);
         }
         $response = [
-            'response' => ['message' => __($status, ['email' => $email])]
+            'response' => [
+                'message' => __($status, ['email' => $email]),
+                'success' => false
+            ]
         ];
         return response($response, 500);
     }
@@ -106,7 +110,10 @@ class ResetPasswordController extends Controller
     protected function sendResetResponse(Request $request, $response ) {
 
         $response =  [
-            'response' => ['message' => 'Password reset successfully']
+            'response' => [
+                'message' => 'Password reset successfully',
+                'success' => true
+            ]
         ];
         return response($response,200);
 
@@ -115,7 +122,10 @@ class ResetPasswordController extends Controller
     protected function sendResetFailedResponse(Request $request, $response ) {
 
         $response =  [
-            'response' => ['message' => 'Token invalid']
+            'response' => [
+                'message' => 'Token invalid',
+                'success' => false
+            ]
         ];
         return response($response, 401);
         

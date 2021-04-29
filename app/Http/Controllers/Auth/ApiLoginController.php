@@ -30,6 +30,7 @@ class ApiLoginController extends Controller
      * @param \App\Repositories\UserRepositoryInterface
      * @param \App\Contracts\Password\PasswordContract
      * 
+     * @return void
      */
 
     public function __construct(UserRepositoryInterface $user, PasswordContract $hash) {
@@ -88,25 +89,38 @@ class ApiLoginController extends Controller
         if ($user) {
             if ($this->checkPassword(['request' => $request, 'user' => $user])) {
                 $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-                $response = ['response' => [
-                    'user' => new UserResource($user),
-                    'token' => $token
-                ]];
+                $response = [
+                    'response' => [
+                        'user' => new UserResource($user),
+                        'token' => $token,
+                        'success' => true,
+                        'message' => 'User loggedin succesfully'
+                    ]
+                ];
                 //LoginEvent::dispatch($user);
                 event(new LoginEvent($user));
                 return response($response, 200);
             } 
             
             $response = ["response" => [
-                "message" => "Password mismatch"
+                "message" => "Password mismatch",
+                "success" => false
             ]];
             return response($response, 422);
             
-        } 
+        }else{
+
+            $response = ['response' => [
+                "message" =>'User does not exist',
+                "success" => false
+            ]];
+            return response($response, 404);  
+        }
         $response = ['response' => [
-            "message" =>'User does not exist'
+            "message" =>'Internal server error',
+            "success" => false
         ]];
-        return response($response, 404);  
+        return response($response, 500); 
     }
 
     /**
