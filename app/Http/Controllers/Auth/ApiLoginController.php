@@ -46,7 +46,10 @@ class ApiLoginController extends Controller
         try {
             $token  = $request->user()->token();
             $token->revoke();
-            $response = ['response' => 'You have been successfully logged out!'];
+            $response = ['response' => [
+                'message' => 'You have been successfully logged out!',
+                'success' => true 
+            ]];
             return response($response, 200);
         } catch (\Throwable $th) {
             Log::error("wahala");

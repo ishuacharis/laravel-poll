@@ -35,7 +35,6 @@ use App\Models\User;
 //'json.response' middle
 Route::group(['middleware' => ['cors', ]], function() {
     Route::post('register', [ApiRegisterController::class, 'register']);
-    Route::get('notifications/{id}', [NotificationController::class, 'index'] );
     //broadcast(new MessageEvent("Thank God it is working in api route"));
     Route::post('login', [ApiLoginController::class, 'login']);
     Route::post('forgot_password', [ForgotPasswordController::class, 'forgotPassword']);
@@ -43,13 +42,14 @@ Route::group(['middleware' => ['cors', ]], function() {
     Route::get('email/verify/{id}', [VerificationController::class, 'verify'])->name('verification.verify');
     
     
-    
     //protected routes 
-    Route::middleware('auth:api')->group(function() {
+    Route::middleware(['auth:api'])->group(function() {
         Route::get('email/verify', [VerificationController::class, 'notice'])->name('verification.notice');
-        Route::get('eviction', [EvictionController::class, 'eviction'])->middleware(['verified']);
-        Route::post('logout', [ApiLoginController::class, 'logout'])->middleware(['verified']);
-        Route::post('vote', [HousemateUserController::class, 'vote'])->middleware(['verified']);
+        Route::get('eviction', [EvictionController::class, 'eviction'])->middleware('verified');
+        Route::post('logout', [ApiLoginController::class, 'logout']);
+        Route::post('vote', [HousemateUserController::class, 'vote'])->middleware('verified');
+        Route::get('notifications/{id}', [NotificationController::class, 'index'] )->middleware('verified');
+       
         //vote routes
     });
 

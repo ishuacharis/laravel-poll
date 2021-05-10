@@ -39,7 +39,8 @@ class NotificationController extends Controller
         $response = [
             'response' => [
                 'message' => "Notifications {$request->id}",
-                'notifications' => $this->user->allNotification($notifications)
+                'notifications' => $this->user->allNotification($notifications),
+                'success' => true
             ]
         ];
         return response($response,200);
