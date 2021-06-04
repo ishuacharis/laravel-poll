@@ -32,7 +32,8 @@ class HousemateUserController extends Controller
         if ($vote) {
             $response = [
                 'response' => [
-                    'message' => "Your vote was successful"
+                    "success" => true,
+                    "message" => "Your vote was successful"
                 ]
             ];
             return response($response, 200);
@@ -40,10 +41,11 @@ class HousemateUserController extends Controller
 
         $response = [
             'response' => [
-                'error' => "Internal server error"
+                "success" => false,
+                "message" => "Internal server error"
             ]
         ];
-        return response($vote,500);
+        return response($response,500);
     } 
 
     private function createVote($args)
