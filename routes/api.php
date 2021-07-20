@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\HousemateUserController;
 use App\Http\Controllers\EvictionController;
+use App\Http\Controllers\ProfileController;
 use App\Events\LoginEvent;
 use App\Events\MessageEvent;
 use App\Models\User;
@@ -40,6 +41,7 @@ Route::group(['middleware' => ['cors', ]], function() {
     Route::post('forgot_password', [ForgotPasswordController::class, 'forgotPassword']);
     Route::post('reset_password', [ResetPasswordController::class, 'resetPassword']);
     Route::get('email/verify/{id}', [VerificationController::class, 'verify'])->name('verification.verify');
+    //Route::put('profile/{id}', [ProfileController::class, 'updateProfile']);
     
     
     //protected routes 
@@ -49,7 +51,8 @@ Route::group(['middleware' => ['cors', ]], function() {
         Route::post('logout', [ApiLoginController::class, 'logout']);
         Route::post('vote', [HousemateUserController::class, 'vote'])->middleware('verified');
         Route::get('notifications/{id}', [NotificationController::class, 'index'] )->middleware('verified');
-       
+        Route::put('profile/{id}', [ProfileController::class, 'updateProfile'])->middleware('verified');
+        
         //vote routes
     });
 

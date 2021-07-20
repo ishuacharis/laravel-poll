@@ -6,6 +6,7 @@ use App\Models\Housemate;
 use App\Models\Platform;
 use App\Models\HousemateUser;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 
 class DatabaseSeeder extends Seeder
 {

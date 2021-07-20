@@ -27,7 +27,7 @@ class HousemateUserController extends Controller
     public function vote(VoteRequestForm $request)
     {
         $validated = $request->validated();
-        $vote =  $this->createVote(['request' => $validated]);
+        $vote = $this->createVote(['request' => $validated]);
 
         if ($vote) {
             $response = [

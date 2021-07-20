@@ -23,7 +23,7 @@ class PlatformFactory extends Factory
     {
         return [
             //
-            'device' => $this->faker->randomElement(['mobile','web'])
+            // 'device' => $this->faker->randomElement(['mobile','web'])
         ];
     }
 }
