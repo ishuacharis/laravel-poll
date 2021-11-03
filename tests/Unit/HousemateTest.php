@@ -36,8 +36,6 @@ class HousemateTest extends TestCase
     public function test_a_housemate_has_many_users() {
         $user = User::factory()->create();
         $housemate = Housemate::factory()->create();
-
-        
         $this->assertInstanceOf(User::class, $user);
         $this->assertInstanceOf(Housemate::class, $housemate);
         $this->assertInstanceOf(Collection::class, $housemate->users);
